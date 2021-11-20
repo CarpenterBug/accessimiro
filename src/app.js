@@ -29,6 +29,8 @@ async function init() {
       });
 
       recBtn.innerHTML = "Record Command";
+      recBtn.classList.add("button-loading");
+      recBtn.setAttribute("disabled", "true");
       recBtn.classList.remove("button-danger");
     } else {
       console.log("recording");
@@ -58,6 +60,8 @@ async function init() {
       })
       .then(function (data) {
         console.log(data);
+        recBtn.classList.remove("button-loading");
+        recBtn.removeAttribute("disabled");
       });
   }
 
