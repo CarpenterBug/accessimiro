@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/mirotone@2.0.0/dist/styles.css"
+    />
+    <link rel="stylesheet" href="/src/assets/style.css" />
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+    <script type="text/javascript"></script>
+    <style>
+      #record-btn.button-danger {
+        animation: wave 1s ease-in-out infinite;
+      }
+
+      @keyframes wave {
+        0% {
+          box-shadow: none;
+        }
+        50% {
+          box-shadow: 0 0 0 5px pink;
+        }
+        100% {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid wrapper">
+      <div class="cs1 ce12">
+        <h1>Welcome to the Handsfree Miro app</h1>
+      </div>
+      <div class="cs1 ce12">
+        <button id="record-btn" class="button button-primary">
+          Record command
+        </button>
+      </div>
+      <div id="response-cont" class="cs1 ce12"></div>
+    </div>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
