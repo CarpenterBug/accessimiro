@@ -59,7 +59,13 @@ async function init() {
         return response.text();
       })
       .then(function (data) {
-        console.log(data);
+				console.log(data);
+				let tex = JSON.parse(data.replace(/'/g, '"'))['text'];
+				let responseDOMCont = document.querySelector("#response-cont");
+				responseDOMCont.innerHTML = "You said: " +tex;
+				setTimeout(() => {
+					responseDOMCont.innerHTML = "";
+				}, 5000);
         recBtn.classList.remove("button-loading");
         recBtn.removeAttribute("disabled");
       });
