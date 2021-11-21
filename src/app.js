@@ -19,8 +19,8 @@ async function init() {
 
   let recBtn = document.querySelector("#record-btn");
 
-  recBtn.addEventListener("click", () => {
-    if (recBtn.classList.contains("button-danger")) {
+	function toggleRec() {
+		if (recBtn.classList.contains("button-danger")) {
       recorder.stopRecording(function () {
         let blob = recorder.getBlob();
         // invokeSaveAsDialog(blob);
@@ -40,6 +40,9 @@ async function init() {
 
       recorder.startRecording();
     }
+	}
+  recBtn.addEventListener("click", () => {
+    toggleRec();
   });
 
   function sendData(blob) {
@@ -89,7 +92,15 @@ async function init() {
     var msg = new SpeechSynthesisUtterance();
     msg.text = text;
     window.speechSynthesis.speak(msg);
-  }
+	}
+	
+		
+	document.onkeyup = function(e) {
+		// space and enter
+		if (e.key == " ") {
+			toggleRec();
+		}
+	};
 }
 
 init();
