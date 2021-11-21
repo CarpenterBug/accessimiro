@@ -28,7 +28,7 @@ async function init() {
         sendData(blob);
       });
 
-      recBtn.innerHTML = "Record Command";
+      recBtn.innerHTML = "Ask me";
       recBtn.classList.add("button-loading");
       recBtn.setAttribute("disabled", "true");
       recBtn.classList.remove("button-danger");
@@ -59,18 +59,25 @@ async function init() {
         return response.text();
       })
       .then(function (data) {
-        console.log(data);
         let jsonData = JSON.parse(data);
+        console.log("jsonData", jsonData);
         let responseDOMCont = document.querySelector("#response-cont");
-        responseDOMCont.innerHTML = "You said: " + jsonData.text;
-        setTimeout(() => {
-          responseDOMCont.innerHTML = "";
-        }, 5000);
         recBtn.classList.remove("button-loading");
         recBtn.removeAttribute("disabled");
+
+        if (jsonData.text === "") {
+          textToSpeech("Could you please repeat?");
+        } else if (!jsonData.action_required) {
+          responseDOMCont.innerHTML = "You said: " + jsonData.text;
+          setTimeout(() => {
+            responseDOMCont.innerHTML = "";
+          }, 5000);
+        }
         if (jsonData.action_required) textToSpeech(jsonData.text);
       })
       .catch((error) => {
+        console.log("Error", error);
+
         recBtn.classList.remove("button-loading");
         recBtn.removeAttribute("disabled");
         textToSpeech("Perkele, something went wrong!");
