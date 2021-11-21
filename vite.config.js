@@ -9,10 +9,11 @@ module.exports = defineConfig({
         index: path.resolve(__dirname, "index.html"),
         app: path.resolve(__dirname, "app.html"),
       },
-    },
+		},
   },
   server: {
     https: true,
-  },
+	},
+	base: '',
   plugins: [mkcert()],
 });
