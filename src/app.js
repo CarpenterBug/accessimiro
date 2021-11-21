@@ -60,15 +60,21 @@ async function init() {
       })
       .then(function (data) {
         console.log(data);
-        let tex = JSON.parse(data.replace(/'/g, '"'))["text"];
+        let jsonData = JSON.parse(data);
         let responseDOMCont = document.querySelector("#response-cont");
-        responseDOMCont.innerHTML = "You said: " + tex;
+        responseDOMCont.innerHTML = "You said: " + jsonData.text;
         setTimeout(() => {
           responseDOMCont.innerHTML = "";
         }, 5000);
         recBtn.classList.remove("button-loading");
         recBtn.removeAttribute("disabled");
-        textToSpeech(tex);
+        if (jsonData.action_required) textToSpeech(jsonData.text);
+      })
+      .catch((error) => {
+        recBtn.classList.remove("button-loading");
+        recBtn.removeAttribute("disabled");
+        textToSpeech("Perkele, something went wrong!");
+        throw error;
       });
   }
 
